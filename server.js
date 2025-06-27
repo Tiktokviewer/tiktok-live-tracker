@@ -14,7 +14,7 @@ const port = process.env.PORT || 3000;
 app.use(express.static("public"));
 
 // TikTok Username
-const streamerUsername = "Crissyhalt";
+const streamerUsername = ["crissyhalt","andrej_crazy1"];
 
 // Verbindung zu TikTok Live
 const tiktokConnection = new WebcastPushConnection(streamerUsername);
