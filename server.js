@@ -7,11 +7,16 @@ const app = express();
 const server = http.createServer(app);
 const io = new Server(server);
 
+// Port von Render nutzen
 const port = process.env.PORT || 3000;
+
+// Statische Dateien aus /public bereitstellen
 app.use(express.static("public"));
 
-const streamerUsername = "crissyhalt"; // Ersetze das!
+// TikTok Username
+const streamerUsername = "Crissyhalt";
 
+// Verbindung zu TikTok Live
 const tiktokConnection = new WebcastPushConnection(streamerUsername);
 
 tiktokConnection.connect().then(() => {
@@ -20,6 +25,7 @@ tiktokConnection.connect().then(() => {
   console.error("Verbindungsfehler:", err);
 });
 
+// Events
 tiktokConnection.on("like", data => {
   io.emit("like", {
     user: data.uniqueId,
@@ -42,6 +48,7 @@ tiktokConnection.on("chat", data => {
   });
 });
 
+// Server starten
 server.listen(port, () => {
   console.log(`🚀 Server läuft auf Port ${port}`);
 });
